@@ -29,3 +29,10 @@ jobs:
       - name: Push Docker Image
         run: |
           docker push ${{ secrets.DOCKER_USERNAME }}/spring-petclinic:latest
+
+      - name: Trigger Terraform Repository
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.GH_PAT }}
+          repository:  tushar-2902/azure-aks
+          event-type: terraform-deploy    
